@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.secrets)
     id("io.gitlab.arturbosch.detekt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -73,6 +74,8 @@ dependencies {
     implementation(libs.shimmer)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 }
 
 detekt {

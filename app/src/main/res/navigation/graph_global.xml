@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/graph_global.xml"
+    app:startDestination="@id/destination_search_fragment">
+
+    <action
+        android:id="@+id/action_global_search_fragment"
+        app:destination="@+id/destination_search_fragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out" />
+
+    <fragment
+        android:id="@+id/destination_search_fragment"
+        android:name="com.example.androiddevelopment2.presentation.search.RecipesFragment"
+        android:label="destination_search_page" />
+
+    <action
+        android:id="@+id/action_global_recipe_details_fragment"
+        app:destination="@+id/destination_recipe_details_fragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out" />
+
+
+    <fragment
+        android:id="@+id/destination_recipe_details_fragment"
+        android:name="com.example.androiddevelopment2.presentation.details.RecipeDetailsFragment"
+        android:label="destination_search_page">
+
+        <argument
+            android:name="recipeId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+</navigation>

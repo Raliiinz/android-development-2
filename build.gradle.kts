@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.secrets) apply false
     id("io.gitlab.arturbosch.detekt").version("1.23.8")
+    id("androidx.navigation.safeargs") version "2.8.4" apply false
 }

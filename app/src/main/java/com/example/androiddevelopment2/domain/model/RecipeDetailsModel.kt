@@ -6,5 +6,6 @@ data class RecipeDetailsModel(
     val imageUrl: String?,
     val summary: String,
     val instructions: String,
-//    val ingredients: List<Ingredient>
+    val readyInMinutes: Int,
+    val servings: Int,
 )

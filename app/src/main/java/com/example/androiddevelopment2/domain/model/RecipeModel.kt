@@ -5,5 +5,5 @@ data class RecipeModel(
     val title: String,
     val imageUrl: String?,
     val usedIngredients: Int,
-    val missedIngredients: Int
+    val missedIngredients: Int,
 )

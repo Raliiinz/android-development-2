@@ -5,6 +5,7 @@ import com.example.androiddevelopment2.data.remote.RecipeApi
 import com.example.androiddevelopment2.domain.model.RecipeDetailsModel
 import com.example.androiddevelopment2.domain.repository.RecipeDetailsRepository
 import com.example.androiddevelopment2.domain.util.ErrorHandler
+import java.io.IOException
 import javax.inject.Inject
 
 class RecipeDetailsRepositoryImpl @Inject constructor(
@@ -13,34 +14,33 @@ class RecipeDetailsRepositoryImpl @Inject constructor(
     private val errorHandler: ErrorHandler
 ): RecipeDetailsRepository {
 
-    override suspend fun getRecipeDetails(id: Int): Result<RecipeDetailsModel> {
+    override suspend fun getRecipeDetails(id: Int): RecipeDetailsModel {
         return try {
             val response = recipeApi.getRecipeDetails(id)
-            if (response.isSuccessful) {
-                response.body()?.let { recipeDetailsResponse ->
-                    Result.success(mapper.map(recipeDetailsResponse))
-                } ?: Result.failure(errorHandler.handleError(response.code()))
-            } else {
-                Result.failure(errorHandler.handleError(response.code()))
-            }
-        } catch (e: Exception) {
-            kotlin.Result.failure(errorHandler.handleException(e))
-        }
-    }
 
-//    override suspend fun getRecipeDetails(id: Int): Result<RecipeDetailsModel> {
-//        return try {
-//            val response = recipeApi.getRecipeDetails(id)
-//            if (response.isSuccessful) {
-//                response.body()?.let { recipeDetailsResponse ->
-//                    Result.success(mapper.map(recipeDetailsResponse))
-//                } ?: Result.failure(errorHandler.handleError(response.code()))
-//            } else {
-//                Result.failure(errorHandler.handleError(response.code()))
+            if (response.isSuccessful) {
+                response.body().let { recipe ->
+                    mapper.map(recipe)
+                }
+            } else {
+                throw errorHandler.handleHttpException(response.code())
+            }
+        } catch (_: IOException) {
+            throw Exception()
+        }
+//            throw NetworkException(null)
+//        } catch (e: HttpException) {
+//            val errorBody = e.response()?.errorBody()?.string()
+//            val httpError = parseHttpError(errorBody)
+//
+//            when (e.code()) {
+//                403 -> throw ForbiddenException(httpError?.error?.message)
+//                else -> throw ServerException(httpError?.error?.message)
 //            }
-//        } catch (e: Exception) {
-//            Result.failure(errorHandler.handleException(e))
 //        }
-////        return recipeApi.getRecipeDetails(id = id).let(mapper::map)
-//    }
+
+
+    }
 }
+
+

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">AndroidDevelopment2</string>
+    <string name="enter_ingredients">Enter ingredients (comma separated)</string>
+    <string name="search">Search Recipes</string>
+    <string name="search_initial_message">Enter ingredients to find delicious recipes!</string>
+    <string name="no_recipes_found">No recipes found for these ingredients</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="prep_time_format">Prep: %d min</string>
+    <string name="cook_time_format">Cook: %d min</string>
+    <string name="servings_format">Servings: %d</string>
+    <string name="used_ingredients">Used ingredients: %d</string>
+    <string name="missing_ingredients">Missing ingredients: %d</string>
+    <string name="summary">Summary</string>
+    <string name="ready_in_minutes_format">Ready in %d min</string>
 </resources>

@@ -11,14 +11,11 @@ import retrofit2.http.Query
 interface RecipeApi {
     @GET("findByIngredients")
     suspend fun searchRecipesByIngredients(
-        @Query("ingredients") ingredients: String,
-//        @Query("number") number: Int = 10,
-//        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
+        @Query("ingredients") ingredients: String
     ): Response<List<RecipeResponse?>>
 
     @GET("{id}/information")
     suspend fun getRecipeDetails(
-        @Path("id") id: Int,
-//        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
+        @Path("id") id: Int
     ): Response<RecipeDetailsResponse?>
 }

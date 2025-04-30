@@ -13,15 +13,9 @@ data class RecipeDetailsResponse(
     val summary: String?,
     @SerializedName("instructions")
     val instructions: String?,
-//    @SerializedName("extendedIngredients")
-//    val ingredients: List<Ingredient?>
+    @SerializedName("readyInMinutes")
+    val readyInMinutes: Int?,
+    @SerializedName("servings")
+    val servings: Int?,
 )
 
-data class Ingredient(
-    @SerializedName("name")
-    val name: String?,
-    @SerializedName("amount")
-    val amount: Double?,
-    @SerializedName("unit")
-    val unit: String?
-)
