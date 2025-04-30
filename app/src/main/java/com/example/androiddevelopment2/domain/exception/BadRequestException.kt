@@ -1,3 +1,3 @@
 package com.example.androiddevelopment2.domain.exception
 
-class BadRequestException : ApiException("Bad request")
+class BadRequestException(message: String?) : Exception(message)

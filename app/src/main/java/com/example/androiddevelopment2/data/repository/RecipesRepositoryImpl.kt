@@ -1,12 +1,12 @@
 package com.example.androiddevelopment2.data.repository
 
-import android.net.http.HttpException
 import com.example.androiddevelopment2.data.mapper.RecipeResponseMapper
 import com.example.androiddevelopment2.data.remote.RecipeApi
-import com.example.androiddevelopment2.domain.exception.ForbiddenException
+import com.example.androiddevelopment2.domain.exception.NetworkException
 import com.example.androiddevelopment2.domain.model.RecipeModel
 import com.example.androiddevelopment2.domain.repository.RecipesRepository
 import com.example.androiddevelopment2.domain.util.ErrorHandler
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -21,17 +21,36 @@ class RecipesRepositoryImpl @Inject constructor(
             val response = recipeApi.searchRecipesByIngredients(ingredients)
 
             if (response.isSuccessful) {
-                response.body()?.let { recipeResponses ->
-                    recipeResponses.mapNotNull { recipeResponse ->
-                        mapper.map(recipeResponse)
-                    }
-                } ?: emptyList()
+                response.body()?.mapNotNull { mapper.map(it) } ?: emptyList()
             } else {
                 throw errorHandler.handleHttpException(response.code())
             }
-        } catch (_: IOException) {
-            throw Exception()
+        } catch (e: IOException) {
+            throw NetworkException(null)
+//            throw Exception("Проблема с сетью. Проверьте подключение к интернету.")
+        } catch (e: HttpException) {
+            throw errorHandler.handleHttpException(e.code())
+        } catch (e: Exception) {
+            throw Exception(e.message)
         }
+    }
+
+//    override suspend fun searchRecipes(ingredients: String): List<RecipeModel> {
+//        return try {
+//            val response = recipeApi.searchRecipesByIngredients(ingredients)
+//
+//            if (response.isSuccessful) {
+//                response.body()?.let { recipeResponses ->
+//                    recipeResponses.mapNotNull { recipeResponse ->
+//                        mapper.map(recipeResponse)
+//                    }
+//                } ?: emptyList()
+//            } else {
+//                throw errorHandler.handleHttpException(response.code())
+//            }
+//        } catch (_: IOException) {
+//            throw Exception()
+//        }
 //            throw NetworkException(null)
 //        } catch (e: HttpException) {
 //            val errorBody = e.response()?.errorBody()?.string()
@@ -42,6 +61,6 @@ class RecipesRepositoryImpl @Inject constructor(
 //                else -> throw ServerException(httpError?.error?.message)
 //            }
 //        }
-    }
+//    }
 }
 

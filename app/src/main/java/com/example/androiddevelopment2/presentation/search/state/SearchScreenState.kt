@@ -6,5 +6,5 @@ sealed interface SearchScreenState {
     data object Initial : SearchScreenState
     data object Loading : SearchScreenState
     data class SearchResult(val result: List<RecipeModel>) : SearchScreenState
-    data class Error(val message: String?, val ex: Throwable) : SearchScreenState
+//    data class Error(val message: String?, val ex: Throwable) : SearchScreenState
 }

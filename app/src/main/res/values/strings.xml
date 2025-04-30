@@ -14,4 +14,22 @@
     <string name="missing_ingredients">Missing ingredients: %d</string>
     <string name="summary">Summary</string>
     <string name="ready_in_minutes_format">Ready in %d min</string>
+
+
+    <string name="error_title_validation">Ошибка ввода</string>
+    <string name="error_title_auth">Ошибка авторизации</string>
+    <string name="error_title_server">Ошибка сервера</string>
+    <string name="error_title_network">Сетевая ошибка</string>
+    <string name="error_title_unknown">Неизвестная ошибка</string>
+
+    <string name="error_empty_input">Поле не должно быть пустым</string>
+    <string name="error_min_length">Минимум 3 символа</string>
+    <string name="error_unauthorized">Вы не авторизованы. Пожалуйста, войдите в систему.</string>
+    <string name="error_forbidden">Доступ запрещен. У вас нет прав.</string>
+    <string name="error_not_found">Рецепты не найдены.</string>
+    <string name="error_bad_request">Неверный запрос. Проверьте введенные данные.</string>
+    <string name="error_server">Ошибка на сервере. Попробуйте позже.</string>
+    <string name="error_network">Нет подключения к интернету.</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <string name="error_invalid_format">Разделяйте ингредиенты запятыми</string>
 </resources>

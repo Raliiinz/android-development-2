@@ -1,3 +1,3 @@
-package com.example.androiddevelopment2.domain.exception
-
-class UnknownApiException(message: String) : ApiException(message)
+//package com.example.androiddevelopment2.domain.exception
+//
+//class UnknownApiException(message: String) : ApiException(message)
