@@ -1,6 +1,5 @@
 package com.example.androiddevelopment2.di.module
 
-import com.example.androiddevelopment2.di.qualifies.DefaultDispatchers
 import com.example.androiddevelopment2.di.qualifies.IoDispatchers
 import dagger.Module
 import dagger.Provides
@@ -17,11 +16,5 @@ class DomainModule {
     @IoDispatchers
     fun provideIoDispatcher(): CoroutineDispatcher{
         return Dispatchers.IO
-    }
-
-    @Provides
-    @DefaultDispatchers
-    fun provideDefaultDispatcher(): CoroutineDispatcher{
-        return Dispatchers.Default
     }
 }

@@ -2,9 +2,11 @@ package com.example.androiddevelopment2.data.repository
 
 import com.example.androiddevelopment2.data.mapper.RecipeDetailsResponseMapper
 import com.example.androiddevelopment2.data.remote.RecipeApi
+import com.example.androiddevelopment2.domain.exception.NetworkException
 import com.example.androiddevelopment2.domain.model.RecipeDetailsModel
 import com.example.androiddevelopment2.domain.repository.RecipeDetailsRepository
 import com.example.androiddevelopment2.domain.util.ErrorHandler
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -19,28 +21,20 @@ class RecipeDetailsRepositoryImpl @Inject constructor(
             val response = recipeApi.getRecipeDetails(id)
 
             if (response.isSuccessful) {
-                response.body().let { recipe ->
+                response.body()?.let { recipe ->
                     mapper.map(recipe)
-                }
+                } ?: throw errorHandler.handleHttpException(response.code())
             } else {
                 throw errorHandler.handleHttpException(response.code())
             }
-        } catch (_: IOException) {
-            throw Exception()
+        } catch (ioe: IOException) {
+            throw NetworkException("Ошибка сети: ${ioe.message ?: "неизвестная ошибка"}").apply {
+                initCause(ioe)
+            }
+        } catch (httpException: HttpException) {
+            throw errorHandler.handleHttpException(httpException.code()).apply {
+                initCause(httpException)
+            }
         }
-//            throw NetworkException(null)
-//        } catch (e: HttpException) {
-//            val errorBody = e.response()?.errorBody()?.string()
-//            val httpError = parseHttpError(errorBody)
-//
-//            when (e.code()) {
-//                403 -> throw ForbiddenException(httpError?.error?.message)
-//                else -> throw ServerException(httpError?.error?.message)
-//            }
-//        }
-
-
     }
 }
-
-

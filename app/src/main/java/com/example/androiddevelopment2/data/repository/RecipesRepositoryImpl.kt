@@ -25,42 +25,14 @@ class RecipesRepositoryImpl @Inject constructor(
             } else {
                 throw errorHandler.handleHttpException(response.code())
             }
-        } catch (e: IOException) {
-            throw NetworkException(null)
-//            throw Exception("Проблема с сетью. Проверьте подключение к интернету.")
-        } catch (e: HttpException) {
-            throw errorHandler.handleHttpException(e.code())
-        } catch (e: Exception) {
-            throw Exception(e.message)
+        } catch (ioe: IOException) {
+            throw NetworkException("Ошибка сети: ${ioe.message ?: "неизвестная ошибка"}").apply {
+                initCause(ioe)
+            }
+        } catch (httpException: HttpException) {
+            throw errorHandler.handleHttpException(httpException.code()).apply {
+                initCause(httpException)
+            }
         }
     }
-
-//    override suspend fun searchRecipes(ingredients: String): List<RecipeModel> {
-//        return try {
-//            val response = recipeApi.searchRecipesByIngredients(ingredients)
-//
-//            if (response.isSuccessful) {
-//                response.body()?.let { recipeResponses ->
-//                    recipeResponses.mapNotNull { recipeResponse ->
-//                        mapper.map(recipeResponse)
-//                    }
-//                } ?: emptyList()
-//            } else {
-//                throw errorHandler.handleHttpException(response.code())
-//            }
-//        } catch (_: IOException) {
-//            throw Exception()
-//        }
-//            throw NetworkException(null)
-//        } catch (e: HttpException) {
-//            val errorBody = e.response()?.errorBody()?.string()
-//            val httpError = parseHttpError(errorBody)
-//
-//            when (e.code()) {
-//                403 -> throw ForbiddenException(httpError?.error?.message)
-//                else -> throw ServerException(httpError?.error?.message)
-//            }
-//        }
-//    }
 }
-

@@ -15,6 +15,7 @@ import com.example.androiddevelopment2.BuildConfig.RECIPE_API_URL
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
+
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
@@ -24,10 +25,6 @@ class DataModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AppIdInterceptor())
-//            .addInterceptor(MetricInterceptor())
-//            .addInterceptor(HttpLoggingInterceptor().apply {
-//                setLevel(HttpLoggingInterceptor.Level.BODY)
-//            })
             .build()
     }
 

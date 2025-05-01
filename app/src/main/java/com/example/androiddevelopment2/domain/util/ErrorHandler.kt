@@ -1,16 +1,28 @@
 package com.example.androiddevelopment2.domain.util
 
-import com.example.androiddevelopment2.domain.exception.*
+import com.example.androiddevelopment2.domain.exception.BadRequestException
+import com.example.androiddevelopment2.domain.exception.ForbiddenException
+import com.example.androiddevelopment2.domain.exception.NotFoundException
+import com.example.androiddevelopment2.domain.exception.ServerException
+import com.example.androiddevelopment2.domain.exception.UnauthorizedException
 import javax.inject.Inject
 
 class ErrorHandler @Inject constructor() {
+    companion object {
+        private const val HTTP_BAD_REQUEST = 400
+        private const val HTTP_UNAUTHORIZED = 401
+        private const val HTTP_FORBIDDEN = 403
+        private const val HTTP_NOT_FOUND = 404
+        private const val HTTP_SERVER_ERROR = 500
+    }
+
     fun handleHttpException(code: Int): Exception {
         return when (code) {
-            400 -> BadRequestException("Неверный запрос")
-            401 -> UnauthorizedException("Пользователь не авторизован")
-            403 -> ForbiddenException("Доступ запрещен")
-            404 -> NotFoundException("Данные не найдены")
-            500 -> ServerException("Ошибка сервера")
+            HTTP_BAD_REQUEST -> BadRequestException("Неверный запрос")
+            HTTP_UNAUTHORIZED -> UnauthorizedException("Пользователь не авторизован")
+            HTTP_FORBIDDEN -> ForbiddenException("Доступ запрещен")
+            HTTP_NOT_FOUND -> NotFoundException("Данные не найдены")
+            HTTP_SERVER_ERROR -> ServerException("Ошибка сервера")
             else -> Exception("Ошибка: $code")
         }
     }

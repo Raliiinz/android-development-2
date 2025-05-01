@@ -2,7 +2,7 @@ package com.example.androiddevelopment2.data.mapper
 
 import com.example.androiddevelopment2.data.remote.pojo.RecipeDetailsResponse
 import com.example.androiddevelopment2.domain.model.RecipeDetailsModel
-import com.example.androiddevelopment2.presentation.extensions.formatRecipeInstructions
+import com.example.androiddevelopment2.presentation.utils.formatRecipeInstructions
 import javax.inject.Inject
 
 class RecipeDetailsResponseMapper @Inject constructor() {

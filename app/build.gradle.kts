@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.secrets)
-    id("io.gitlab.arturbosch.detekt")
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -78,8 +78,9 @@ dependencies {
     implementation(libs.navigation.ui)
 }
 
+
 detekt {
-    toolVersion = "1.23.8"
-    config.setFrom(file("config/detekt/detekt.yml"))
+    toolVersion = libs.versions.detekt.get()
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     buildUponDefaultConfig = true
 }

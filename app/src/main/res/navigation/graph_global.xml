@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/destination_search_fragment"
-        android:name="com.example.androiddevelopment2.presentation.search.RecipesFragment"
+        android:name="com.example.androiddevelopment2.presentation.screen.search.SearchFragment"
         android:label="destination_search_page" />
 
     <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/destination_recipe_details_fragment"
-        android:name="com.example.androiddevelopment2.presentation.details.RecipeDetailsFragment"
+        android:name="com.example.androiddevelopment2.presentation.screen.details.RecipeDetailsFragment"
         android:label="destination_search_page">
 
         <argument
