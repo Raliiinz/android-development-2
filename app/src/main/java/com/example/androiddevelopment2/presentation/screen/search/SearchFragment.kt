@@ -31,8 +31,8 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
 
         setupRecyclerView()
         setupSearchButton()
-        observeViewModel()
-        observeErrorEvents()
+        observeState()
+        observeErrors()
     }
 
     private fun setupRecyclerView() {
@@ -60,19 +60,7 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
         }
     }
 
-//    private fun setupSearch() {
-//        viewBinding.etSearch.doOnTextChanged { input, _, _, _ ->
-//            viewBinding.textInputSearch.error = null
-//
-//            if (input?.isNotEmpty() == true) {
-//                viewModel.reduce(
-//                    event = SearchScreenEvent.OnSearchQueryChanged(query = input.toString())
-//                )
-//            }
-//        }
-//    }
-
-    private fun observeViewModel() {
+    private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.pageState.collect { state ->
                 when (state) {
@@ -94,18 +82,26 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
 
     private fun showLoading() {
         hideKeyboard()
-        viewBinding.shimmerContainer.visibility = View.VISIBLE
-        viewBinding.shimmerContainer.startShimmer()
-        viewBinding.rvSearchResult.visibility = View.INVISIBLE
+        with(viewBinding) {
+            shimmerContainer.run {
+                visibility = View.VISIBLE
+                startShimmer()
+            }
+            rvSearchResult.visibility = View.INVISIBLE
+        }
     }
 
     private fun hideLoading() {
-        viewBinding.shimmerContainer.stopShimmer()
-        viewBinding.shimmerContainer.visibility = View.GONE
-        viewBinding.rvSearchResult.visibility = View.VISIBLE
+        with(viewBinding) {
+            shimmerContainer.run {
+                stopShimmer()
+                visibility = View.GONE
+            }
+            rvSearchResult.visibility = View.VISIBLE
+        }
     }
 
-    private fun observeErrorEvents() {
+    private fun observeErrors() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.errorEvent.collect { event ->
                 when (event) {
@@ -113,9 +109,6 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
                         showValidationError(event.reason)
                     }
                     is SearchErrorEvent.ServerError -> {
-                        hideKeyboard()
-                        //loadingContainer.isVisible = false
-//////                        loadingContainer.clearFocus()
                         showServerErrorDialog(event.reason)
                     }
                     SearchErrorEvent.ClearValidationError -> {
@@ -127,18 +120,15 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
     }
 
     private fun showValidationError(reason: SearchErrorEvent.ValidationFailureReason) {
-        val errorMessage = when (reason) {
-            SearchErrorEvent.ValidationFailureReason.EmptyInput ->
-                getString(R.string.error_empty_input)
-            SearchErrorEvent.ValidationFailureReason.MinLength ->
-                getString(R.string.error_min_length)
-            SearchErrorEvent.ValidationFailureReason.InvalidFormat ->
-                getString(R.string.error_invalid_format)
+        viewBinding.textInputSearch.error = when (reason) {
+            SearchErrorEvent.ValidationFailureReason.EmptyInput -> getString(R.string.error_empty_input)
+            SearchErrorEvent.ValidationFailureReason.MinLength -> getString(R.string.error_min_length)
+            SearchErrorEvent.ValidationFailureReason.InvalidFormat -> getString(R.string.error_invalid_format)
         }
-        viewBinding.textInputSearch.error = errorMessage
     }
 
     private fun showServerErrorDialog(reason: SearchErrorEvent.ServerFailureReason) {
+        hideKeyboard()
         val (titleRes, messageRes) = when (reason) {
             SearchErrorEvent.ServerFailureReason.Unauthorized ->
                 Pair(R.string.error_title_auth, R.string.error_unauthorized)

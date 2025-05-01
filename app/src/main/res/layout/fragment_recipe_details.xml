@@ -6,7 +6,6 @@
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_container"
         android:layout_width="match_parent"
@@ -117,6 +116,5 @@
                 android:lineSpacingExtra="4dp"
                 tools:text="1. Boil pasta according to package instructions\n2. Prepare the sauce\n3. Mix everything together"/>
         </LinearLayout>
-
     </ScrollView>
 </FrameLayout>

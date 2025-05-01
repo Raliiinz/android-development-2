@@ -22,17 +22,16 @@ class RecipeDetailsFragment: Fragment(R.layout.fragment_recipe_details) {
     private val viewBinding: FragmentRecipeDetailsBinding by viewBinding(
         FragmentRecipeDetailsBinding::bind)
     private val viewModel: RecipeDetailsViewModel by viewModels()
-
     private val args: RecipeDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModel()
-        observeErrorEvents()
+        observeState()
+        observeErrors()
         viewModel.getRecipeDetails(args.recipeId)
     }
 
-    private fun observeViewModel() {
+    private fun observeState() {
         lifecycleScope.launch {
             viewModel.detailsState.collect { state ->
                 when (state) {
@@ -46,22 +45,33 @@ class RecipeDetailsFragment: Fragment(R.layout.fragment_recipe_details) {
 
     private fun showLoading() {
         with(viewBinding) {
-            shimmerContainer.visibility = View.VISIBLE
-            shimmerContainer.startShimmer()
+            shimmerContainer.run {
+                visibility = View.VISIBLE
+                startShimmer()
+            }
             scrollView.visibility = View.GONE
         }
     }
 
-    private fun showRecipeDetails(recipe: RecipeDetailsModel) {
+    private fun hideLoading() {
         with(viewBinding) {
-            shimmerContainer.stopShimmer()
-            shimmerContainer.visibility = View.GONE
+            shimmerContainer.run {
+                stopShimmer()
+                visibility = View.GONE
+            }
             scrollView.visibility = View.VISIBLE
+        }
+    }
 
+    private fun showRecipeDetails(recipe: RecipeDetailsModel) {
+        hideLoading()
+
+        with(viewBinding) {
             Glide.with(requireContext())
                 .load(recipe.imageUrl)
+                .error(R.drawable.photo_placeholder)
+                .fallback(R.drawable.photo_placeholder)
                 .into(recipeImage)
-
             recipeTitleTextView.text = recipe.title
             summaryTextView.text = recipe.summary
             instructionsTextView.text = recipe.instructions
@@ -70,18 +80,13 @@ class RecipeDetailsFragment: Fragment(R.layout.fragment_recipe_details) {
         }
     }
 
-    private fun observeErrorEvents() {
+    private fun observeErrors() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.errorEvent.collect { event ->
                 when (event) {
                     is DetailsErrorEvent.Error -> {
-                        //loadingContainer.isVisible = false
-//////                        loadingContainer.clearFocus()
                         showErrorDialog(event.reason)
                     }
-//                    SearchErrorEvent.ClearValidationError -> {
-//                        viewBinding.textInputSearch.error = null
-//                    }
                 }
             }
         }

@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface BinderModule {
+interface BinderRepositoryModule {
     @Binds
     @Singleton
     fun bindRecipesRepositoryToImpl(impl: RecipesRepositoryImpl): RecipesRepository

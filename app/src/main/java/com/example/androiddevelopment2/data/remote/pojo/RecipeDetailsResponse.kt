@@ -18,4 +18,3 @@ data class RecipeDetailsResponse(
     @SerializedName("servings")
     val servings: Int?,
 )
-

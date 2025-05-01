@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,7 +30,7 @@ class RecipeDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _detailsState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Initial)
-    val detailsState: StateFlow<DetailsScreenState> = _detailsState
+    val detailsState =_detailsState.asStateFlow()
 
     private val _errorEvent = MutableSharedFlow< DetailsErrorEvent>()
     val errorEvent = _errorEvent.asSharedFlow()
@@ -59,5 +60,6 @@ class RecipeDetailsViewModel @Inject constructor(
             else -> FailureReason.Unknown
         }
         _errorEvent.emit(DetailsErrorEvent.Error(errorReason))
+        _detailsState.update { DetailsScreenState.Initial }
     }
 }

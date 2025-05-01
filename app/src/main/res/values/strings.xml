@@ -7,29 +7,25 @@
     <string name="recipe_image">Recipe image</string>
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
-    <string name="prep_time_format">Prep: %d min</string>
-    <string name="cook_time_format">Cook: %d min</string>
     <string name="servings_format">Servings: %d</string>
     <string name="used_ingredients">Used ingredients: %d</string>
     <string name="missing_ingredients">Missing ingredients: %d</string>
     <string name="summary">Summary</string>
     <string name="ready_in_minutes_format">Ready in %d min</string>
 
-
-    <string name="error_title_validation">Ошибка ввода</string>
-    <string name="error_title_auth">Ошибка авторизации</string>
-    <string name="error_title_server">Ошибка сервера</string>
-    <string name="error_title_network">Сетевая ошибка</string>
-    <string name="error_title_unknown">Неизвестная ошибка</string>
-
-    <string name="error_empty_input">Поле не должно быть пустым</string>
-    <string name="error_min_length">Минимум 3 символа</string>
-    <string name="error_unauthorized">Вы не авторизованы. Пожалуйста, войдите в систему.</string>
-    <string name="error_forbidden">Доступ запрещен. У вас нет прав.</string>
-    <string name="error_not_found">Рецепты не найдены.</string>
-    <string name="error_bad_request">Неверный запрос. Проверьте введенные данные.</string>
-    <string name="error_server">Ошибка на сервере. Попробуйте позже.</string>
-    <string name="error_network">Нет подключения к интернету.</string>
-    <string name="error_unknown">Неизвестная ошибка</string>
-    <string name="error_invalid_format">Разделяйте ингредиенты запятыми</string>
+    <string name="error_title_validation">Input Error</string>
+    <string name="error_title_auth">Authorization Error</string>
+    <string name="error_title_server">Server Error</string>
+    <string name="error_title_network">Network Error</string>
+    <string name="error_title_unknown">Unknown Error</string>
+    <string name="error_empty_input">Field cannot be empty</string>
+    <string name="error_min_length">Minimum 3 characters required</string>
+    <string name="error_unauthorized">You are not authorized. Please log in.</string>
+    <string name="error_forbidden">Access denied. You don\'t have permission.</string>
+    <string name="error_not_found">Recipes not found.</string>
+    <string name="error_bad_request">Invalid request. Please check your input.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_network">No internet connection.</string>
+    <string name="error_unknown">Unknown error occurred</string>
+    <string name="error_invalid_format">Separate ingredients with commas</string>
 </resources>

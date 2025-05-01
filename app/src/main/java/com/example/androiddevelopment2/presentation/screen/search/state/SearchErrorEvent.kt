@@ -23,4 +23,9 @@ sealed class SearchErrorEvent {
         Network,
         Unknown
     }
+
+    sealed class ValidationResult {
+        data class Valid(val query: String) : ValidationResult()
+        data class Invalid(val reason: ValidationFailureReason) : ValidationResult()
+    }
 }

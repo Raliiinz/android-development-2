@@ -50,7 +50,6 @@ class SearchAdapter(
             )
             requestManager
                 .load(recipe.imageUrl)
-//                .placeholder(R.drawable.photo_placeholder)
                 .error(R.drawable.photo_placeholder)
                 .fallback(R.drawable.photo_placeholder)
                 .into(binding.recipeImage)

@@ -8,6 +8,7 @@ import com.example.androiddevelopment2.domain.exception.UnauthorizedException
 import javax.inject.Inject
 
 class ErrorHandler @Inject constructor() {
+
     companion object {
         private const val HTTP_BAD_REQUEST = 400
         private const val HTTP_UNAUTHORIZED = 401
@@ -18,11 +19,11 @@ class ErrorHandler @Inject constructor() {
 
     fun handleHttpException(code: Int): Exception {
         return when (code) {
-            HTTP_BAD_REQUEST -> BadRequestException("Неверный запрос")
-            HTTP_UNAUTHORIZED -> UnauthorizedException("Пользователь не авторизован")
-            HTTP_FORBIDDEN -> ForbiddenException("Доступ запрещен")
-            HTTP_NOT_FOUND -> NotFoundException("Данные не найдены")
-            HTTP_SERVER_ERROR -> ServerException("Ошибка сервера")
+            HTTP_BAD_REQUEST -> BadRequestException()
+            HTTP_UNAUTHORIZED -> UnauthorizedException()
+            HTTP_FORBIDDEN -> ForbiddenException()
+            HTTP_NOT_FOUND -> NotFoundException()
+            HTTP_SERVER_ERROR -> ServerException()
             else -> Exception("Ошибка: $code")
         }
     }

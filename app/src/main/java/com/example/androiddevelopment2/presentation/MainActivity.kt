@@ -14,11 +14,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Nav.Provider {
+
     @Inject
     lateinit var nav: Nav
-
     private val mainContainerId = R.id.main_fragment_container
-
     private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

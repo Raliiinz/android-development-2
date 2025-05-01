@@ -13,6 +13,7 @@ import com.example.androiddevelopment2.presentation.base.navigation.NavMain
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent.ServerFailureReason
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent.ValidationFailureReason
+import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent.ValidationResult
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenEvent
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenState
 import com.example.androiddevelopment2.presentation.utils.Constants.LOADING_DELAY_MS
@@ -41,41 +42,32 @@ class SearchViewModel @Inject constructor(
 
     fun reduce(event: SearchScreenEvent) {
         when (event) {
-            is SearchScreenEvent.OnSearchButtonClicked -> {
-                validateAndSearch(event.query)
-            }
-            is SearchScreenEvent.OnListItemClick -> {
-                navMain.goToDetailsPage(event.recipeId)
+            is SearchScreenEvent.OnSearchButtonClicked -> processSearchQuery(event.query)
+            is SearchScreenEvent.OnListItemClick -> navigateToDetails(event.recipeId)
+        }
+    }
+
+    private fun processSearchQuery(query: String) {
+        viewModelScope.launch {
+            when (val validationResult = validateQuery(query)) {
+                is ValidationResult.Valid -> {
+                    _errorEvent.emit(SearchErrorEvent.ClearValidationError)
+                    searchForQuery(validationResult.query)
+                }
+                is ValidationResult.Invalid -> {
+                    _pageState.update { SearchScreenState.Initial }
+                    _errorEvent.emit(SearchErrorEvent.ValidationError(validationResult.reason))
+                }
             }
         }
     }
 
-    private fun validateAndSearch(query: String) {
-        viewModelScope.launch {
-            when {
-                query.isBlank() -> {
-                    _pageState.update { SearchScreenState.Initial }
-                    _errorEvent.emit(SearchErrorEvent.ValidationError(
-                        ValidationFailureReason.EmptyInput
-                    ))
-                }
-                query.length < MIN_SEARCH_LENGTH -> {
-                    _pageState.update { SearchScreenState.Initial }
-                    _errorEvent.emit(SearchErrorEvent.ValidationError(
-                        ValidationFailureReason.MinLength
-                    ))
-                }
-                !isValidIngredientsFormat(query) -> {
-                    _pageState.update { SearchScreenState.Initial }
-                    _errorEvent.emit(SearchErrorEvent.ValidationError(
-                        ValidationFailureReason.InvalidFormat
-                    ))
-                }
-                else -> {
-                    _errorEvent.emit(SearchErrorEvent.ClearValidationError)
-                    searchForQuery(query)
-                }
-            }
+    private fun validateQuery(query: String): ValidationResult {
+        return when {
+            query.isBlank() -> ValidationResult.Invalid(ValidationFailureReason.EmptyInput)
+            query.length < MIN_SEARCH_LENGTH -> ValidationResult.Invalid(ValidationFailureReason.MinLength)
+            !isValidIngredientsFormat(query) -> ValidationResult.Invalid(ValidationFailureReason.InvalidFormat)
+            else -> ValidationResult.Valid(query)
         }
     }
 
@@ -100,6 +92,7 @@ class SearchViewModel @Inject constructor(
             }.onSuccess { result ->
                 _pageState.update { SearchScreenState.SearchResult(result = result) }
             }.onFailure {
+                _pageState.update { SearchScreenState.Initial }
                 handleError(it)
             }
         }
@@ -116,5 +109,9 @@ class SearchViewModel @Inject constructor(
             else -> ServerFailureReason.Unknown
         }
         _errorEvent.emit(SearchErrorEvent.ServerError(errorReason))
+    }
+
+    private fun navigateToDetails(recipeId: Int) {
+        navMain.goToDetailsPage(recipeId)
     }
 }
