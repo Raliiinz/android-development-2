@@ -28,4 +28,7 @@
     <string name="error_network">No internet connection.</string>
     <string name="error_unknown">Unknown error occurred</string>
     <string name="error_invalid_format">Separate ingredients with commas</string>
+
+    <string name="toast_data_source_cache">Данные получены из кэша</string>
+    <string name="toast_data_source_api">Данные получены из API</string>
 </resources>

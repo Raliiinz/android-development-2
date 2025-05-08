@@ -8,6 +8,7 @@ import com.example.androiddevelopment2.domain.exception.NetworkException
 import com.example.androiddevelopment2.domain.exception.NotFoundException
 import com.example.androiddevelopment2.domain.exception.ServerException
 import com.example.androiddevelopment2.domain.exception.UnauthorizedException
+import com.example.androiddevelopment2.domain.model.RecipeResult
 import com.example.androiddevelopment2.domain.usecase.SearchRecipesUseCase
 import com.example.androiddevelopment2.presentation.base.navigation.NavMain
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent
@@ -16,6 +17,7 @@ import com.example.androiddevelopment2.presentation.screen.search.state.SearchEr
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent.ValidationResult
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenEvent
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenState
+import com.example.androiddevelopment2.presentation.screen.search.state.SearchUiEvent
 import com.example.androiddevelopment2.presentation.utils.Constants.LOADING_DELAY_MS
 import com.example.androiddevelopment2.presentation.utils.Constants.MIN_SEARCH_LENGTH
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +33,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRecipesUseCase: SearchRecipesUseCase,
-    private val navMain: NavMain,
+    private val navMain: NavMain
 ) : ViewModel() {
 
     private val _pageState = MutableStateFlow<SearchScreenState>(value = SearchScreenState.Initial)
@@ -39,6 +41,9 @@ class SearchViewModel @Inject constructor(
 
     private val _errorEvent = MutableSharedFlow<SearchErrorEvent>()
     val errorEvent = _errorEvent.asSharedFlow()
+
+    private val _uiEvent = MutableSharedFlow<SearchUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
 
     fun reduce(event: SearchScreenEvent) {
         when (event) {
@@ -88,15 +93,19 @@ class SearchViewModel @Inject constructor(
             _pageState.update { SearchScreenState.Loading }
             delay(LOADING_DELAY_MS)
             runCatching {
-                searchRecipesUseCase.invoke(ingredients = ingredients)
+                searchRecipesUseCase.invoke(ingredients)
             }.onSuccess { result ->
-                _pageState.update { SearchScreenState.SearchResult(result = result) }
+                _pageState.update {
+                    SearchScreenState.SearchResult(result = result.data)
+                }
+                _uiEvent.emit(SearchUiEvent.ShowDataSourceToast(result.source))
             }.onFailure {
                 _pageState.update { SearchScreenState.Initial }
                 handleError(it)
             }
         }
     }
+
 
     private suspend fun handleError(ex: Throwable) {
         val errorReason = when (ex) {

@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.example.androiddevelopment2.BuildConfig.RECIPE_API_URL
+import com.example.androiddevelopment2.data.local.cache.RecipeCache
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -41,4 +42,8 @@ class DataModule {
             .build()
         return retrofit.create(RecipeApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideRecipeCache(): RecipeCache = RecipeCache()
 }

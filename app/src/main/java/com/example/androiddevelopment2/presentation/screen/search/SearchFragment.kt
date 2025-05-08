@@ -3,6 +3,7 @@ package com.example.androiddevelopment2.presentation.screen.search
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,11 +13,13 @@ import com.bumptech.glide.Glide
 import com.example.androiddevelopment2.R
 import com.example.androiddevelopment2.databinding.FragmentRecipesBinding
 import com.example.androiddevelopment2.domain.model.RecipeModel
+import com.example.androiddevelopment2.domain.model.RecipeResult
 import com.example.androiddevelopment2.presentation.utils.hideKeyboard
 import com.example.androiddevelopment2.presentation.screen.search.adapter.SearchAdapter
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchErrorEvent
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenEvent
 import com.example.androiddevelopment2.presentation.screen.search.state.SearchScreenState
+import com.example.androiddevelopment2.presentation.screen.search.state.SearchUiEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,6 +36,7 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
         setupSearchButton()
         observeState()
         observeErrors()
+        observeUiEvents()
     }
 
     private fun setupRecyclerView() {
@@ -119,6 +123,16 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
         }
     }
 
+    private fun observeUiEvents() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uiEvent.collect { event ->
+                when (event) {
+                    is SearchUiEvent.ShowDataSourceToast -> showDataSourceToast(event.source)
+                }
+            }
+        }
+    }
+
     private fun showValidationError(reason: SearchErrorEvent.ValidationFailureReason) {
         viewBinding.textInputSearch.error = when (reason) {
             SearchErrorEvent.ValidationFailureReason.EmptyInput -> getString(R.string.error_empty_input)
@@ -150,5 +164,14 @@ class SearchFragment: Fragment(R.layout.fragment_recipes) {
             .setMessage(getString(messageRes))
             .setPositiveButton(android.R.string.ok, null)
             .show()
+    }
+
+    private fun showDataSourceToast(source: RecipeResult.Source) {
+        val message = when (source) {
+            RecipeResult.Source.CACHE -> getString(R.string.toast_data_source_cache)
+            RecipeResult.Source.API -> getString(R.string.toast_data_source_api)
+        }
+
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
