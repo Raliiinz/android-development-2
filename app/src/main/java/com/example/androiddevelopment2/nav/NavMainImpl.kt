@@ -5,7 +5,6 @@ import com.example.androiddevelopment2.app.R
 import com.example.androiddevelopment2.navigation.Nav
 import com.example.androiddevelopment2.navigation.NavMain
 import javax.inject.Inject
-import com.example.androiddevelopment2.base.R as baseR
 
 class NavMainImpl @Inject constructor(
     private val navigatorDelegate: NavigatorDelegate,
@@ -18,7 +17,7 @@ class NavMainImpl @Inject constructor(
     }
 
     override fun goToSearchPage() {
-        navigatorDelegate.navigate(action = R.id.action_global_search_fragment)
+        navigatorDelegate.navigate(action = R.id.action_global_search)
     }
 
     override fun goToDetailsPage(recipeId: Int) {
@@ -26,7 +25,7 @@ class NavMainImpl @Inject constructor(
             putInt("recipeId", recipeId)
         }
         navigatorDelegate.navigate(
-            action = R.id.action_global_recipe_details_fragment,
+            action = R.id.action_global_details,
             args = args
         )
     }

@@ -2,30 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/graph_global"
-    app:startDestination="@id/destination_search_fragment">
+    app:startDestination="@id/nav_auth">
 
     <action
-        android:id="@+id/action_global_search_fragment"
-        app:destination="@+id/destination_search_fragment"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out" />
-
-    <fragment
-        android:id="@+id/destination_search_fragment"
-        android:name="com.example.androiddevelopment2.search.SearchFragment"
-        android:label="destination_search_page" />
+        android:id="@+id/action_global_auth"
+        app:destination="@id/nav_auth"/>
+    <include app:graph="@navigation/nav_auth" />
 
     <action
-        android:id="@+id/action_global_recipe_details_fragment"
-        app:destination="@+id/nav_recipe_detail"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out"
-        app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out" />
+        android:id="@+id/action_global_register"
+        app:destination="@id/nav_register"/>
+    <include app:graph="@navigation/nav_register" />
 
+    <action
+        android:id="@+id/action_global_search"
+        app:destination="@id/nav_search"/>
+    <include app:graph="@navigation/nav_search" />
 
+    <action
+        android:id="@+id/action_global_details"
+        app:destination="@id/nav_recipe_detail" />
 
-    <include app:graph="@navigation/nav_recipe_detail"/>
+    <include app:graph="@navigation/nav_recipe_detail" />
 </navigation>

@@ -2,8 +2,12 @@ package com.example.androiddevelopment2.data.di
 
 import com.example.androiddevelopment2.data.repository.RecipeDetailsRepositoryImpl
 import com.example.androiddevelopment2.data.repository.RecipesRepositoryImpl
+import com.example.androiddevelopment2.data.repository.UserPreferencesRepositoryImpl
+import com.example.androiddevelopment2.data.repository.UserRepositoryImpl
 import com.example.androiddevelopment2.domain.repository.RecipeDetailsRepository
 import com.example.androiddevelopment2.domain.repository.RecipesRepository
+import com.example.androiddevelopment2.domain.repository.UserPreferencesRepository
+import com.example.androiddevelopment2.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +24,12 @@ interface DataBinderModule {
     @Binds
     @Singleton
     fun bindRecipeDetailsRepositoryToImpl(impl: RecipeDetailsRepositoryImpl): RecipeDetailsRepository
+
+    @Binds
+    @Singleton
+    fun bindUserPrefRepositoryToImpl(impl: UserPreferencesRepositoryImpl): UserPreferencesRepository
+
+    @Binds
+    @Singleton
+    fun bindUserRepositoryToImpl(impl: UserRepositoryImpl): UserRepository
 }

@@ -56,6 +56,8 @@ dependencies {
     // Feature
     implementation(project(path = ":feature:search"))
     implementation(project(path = ":feature:recipe-details"))
+    implementation(project(path = ":feature:authorization"))
+    implementation(project(path = ":feature:registration"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
