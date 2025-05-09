@@ -1,34 +1,3 @@
 <resources>
-    <string name="app_name">AndroidDevelopment2</string>
-    <string name="enter_ingredients">Enter ingredients (comma separated)</string>
-    <string name="search">Search Recipes</string>
-    <string name="search_initial_message">Enter ingredients to find delicious recipes!</string>
-    <string name="no_recipes_found">No recipes found for these ingredients</string>
-    <string name="recipe_image">Recipe image</string>
-    <string name="ingredients">Ingredients</string>
-    <string name="instructions">Instructions</string>
-    <string name="servings_format">Servings: %d</string>
-    <string name="used_ingredients">Used ingredients: %d</string>
-    <string name="missing_ingredients">Missing ingredients: %d</string>
-    <string name="summary">Summary</string>
-    <string name="ready_in_minutes_format">Ready in %d min</string>
 
-    <string name="error_title_validation">Input Error</string>
-    <string name="error_title_auth">Authorization Error</string>
-    <string name="error_title_server">Server Error</string>
-    <string name="error_title_network">Network Error</string>
-    <string name="error_title_unknown">Unknown Error</string>
-    <string name="error_empty_input">Field cannot be empty</string>
-    <string name="error_min_length">Minimum 3 characters required</string>
-    <string name="error_unauthorized">You are not authorized. Please log in.</string>
-    <string name="error_forbidden">Access denied. You don\'t have permission.</string>
-    <string name="error_not_found">Recipes not found.</string>
-    <string name="error_bad_request">Invalid request. Please check your input.</string>
-    <string name="error_server">Server error. Please try again later.</string>
-    <string name="error_network">No internet connection.</string>
-    <string name="error_unknown">Unknown error occurred</string>
-    <string name="error_invalid_format">Separate ingredients with commas</string>
-
-    <string name="toast_data_source_cache">Данные получены из кэша</string>
-    <string name="toast_data_source_api">Данные получены из API</string>
 </resources>
