@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/MyTextInputLayoutStyle"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@id/imageViewPicture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -83,7 +83,7 @@
         <Button
             android:id="@+id/btn_login"
             style="@style/PrimaryButtonStyle"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="88dp"
             android:text="@string/enter"
             app:backgroundTint="@color/yellow"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -101,7 +101,7 @@
             android:textColor="@color/blue"
             android:textSize="16sp"
             android:gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintTop_toBottomOf="@id/btn_login"
             app:layout_constraintStart_toStartOf="parent"

@@ -2,8 +2,8 @@ package com.example.androiddevelopment2.data.di
 
 import com.example.androiddevelopment2.data.repository.RecipeDetailsRepositoryImpl
 import com.example.androiddevelopment2.data.repository.RecipesRepositoryImpl
-import com.example.androiddevelopment2.data.repository.UserPreferencesRepositoryImpl
-import com.example.androiddevelopment2.data.repository.UserRepositoryImpl
+import com.example.androiddevelopment2.data.local.repository.UserPreferencesRepositoryImpl
+import com.example.androiddevelopment2.data.local.repository.UserRepositoryImpl
 import com.example.androiddevelopment2.domain.repository.RecipeDetailsRepository
 import com.example.androiddevelopment2.domain.repository.RecipesRepository
 import com.example.androiddevelopment2.domain.repository.UserPreferencesRepository

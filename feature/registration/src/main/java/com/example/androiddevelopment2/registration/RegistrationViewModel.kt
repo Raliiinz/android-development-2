@@ -34,14 +34,16 @@ class RegistrationViewModel @Inject constructor(
                 val isSuccess = registerUseCase(phone, password)
                 if (isSuccess) {
                     navigateToAuthorization()
+                } else {
+                    _events.emit(RegistrationEvent.ShowError(RegistrationError.UserAlreadyExists))
                 }
             } catch (e: Exception) {
-                val error = when (e.message) {
-                    "User with this phone number already exists" ->
-                        RegistrationError.UserAlreadyExists
-                    else -> RegistrationError.Unknown
-                }
-                _events.emit(RegistrationEvent.ShowError(error))
+//                val error = when (e.message) {
+//                    "User with this phone number already exists" ->
+//                        RegistrationError.UserAlreadyExists
+//                    else -> RegistrationError.Unknown
+//                }
+                _events.emit(RegistrationEvent.ShowError(RegistrationError.Unknown))
             } finally {
                 _uiState.update { RegistrationUiState.Idle }
             }

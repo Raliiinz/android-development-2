@@ -1,4 +1,4 @@
-package com.example.androiddevelopment2.data.repository
+package com.example.androiddevelopment2.data.local.repository
 
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

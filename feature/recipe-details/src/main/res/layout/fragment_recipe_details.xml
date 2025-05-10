@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="32dp"
             android:padding="16dp">
 
             <androidx.cardview.widget.CardView
@@ -113,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
                 android:lineSpacingExtra="4dp"
                 tools:text="1. Boil pasta according to package instructions\n2. Prepare the sauce\n3. Mix everything together"/>
         </LinearLayout>
