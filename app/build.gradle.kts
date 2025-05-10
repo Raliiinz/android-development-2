@@ -75,32 +75,6 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(libs.viewbindingpropertydelegate.noreflection)
-
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    implementation(libs.androidx.activity)
-//    implementation(libs.androidx.constraintlayout)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-//
-//    implementation(libs.retrofit)
-//    implementation(libs.glide)
-//    implementation(libs.viewbindingpropertydelegate.noreflection)
-//    implementation(libs.okhttp)
-//    implementation(libs.http.logging.interceptor)
-//    implementation("com.google.code.gson:gson:2.10.1")
-//    implementation(libs.androidx.fragment)
-//    implementation(libs.hilt)
-//    ksp(libs.hilt.compiler)
-//    implementation(libs.converter.gson)
-//
-//    implementation(libs.shimmer)
-//    implementation(libs.coroutines.core)
-//    implementation(libs.coroutines.android)
-//    implementation(libs.navigation.fragment)
-//    implementation(libs.navigation.ui)
 }
 
 

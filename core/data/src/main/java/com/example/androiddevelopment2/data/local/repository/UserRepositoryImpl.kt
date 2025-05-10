@@ -1,10 +1,8 @@
 package com.example.androiddevelopment2.data.local.repository
 
 import com.example.androiddevelopment2.data.local.database.dao.UserDao
-import com.example.androiddevelopment2.data.local.database.entities.UserEntity
 import com.example.androiddevelopment2.data.mapper.toUserEntity
 import com.example.androiddevelopment2.domain.repository.UserRepository
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(

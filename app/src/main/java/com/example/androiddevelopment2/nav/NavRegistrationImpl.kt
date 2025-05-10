@@ -1,9 +1,7 @@
 package com.example.androiddevelopment2.nav
 
-import android.os.Bundle
 import com.example.androiddevelopment2.app.R
 import com.example.androiddevelopment2.navigation.Nav
-import com.example.androiddevelopment2.navigation.NavAuthorization
 import com.example.androiddevelopment2.navigation.NavRegistration
 import javax.inject.Inject
 

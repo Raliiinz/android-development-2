@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Authorization  Registration-->
     <string name="logo">логотип</string>
     <string name="phone">Номер телефона</string>
     <string name="password">Пароль</string>
@@ -17,6 +18,8 @@
     <string name="error_user_already_exists">Пользователь с этим номером телефона уже существует</string>
     <string name="error_unknown">Произошла неизвестная ошибка. Пожалуйста, повторите попытку позже.</string>
     <string name="authorization">Авторизация</string>
+
+    <!--Search Details-->
     <string name="app_name">AndroidDevelopment2</string>
     <string name="enter_ingredients">Enter ingredients (comma separated)</string>
     <string name="search">Search Recipes</string>
@@ -31,6 +34,8 @@
     <string name="summary">Summary</string>
     <string name="ready_in_minutes_format">Ready in %d min</string>
 
+
+    <!--Errors-->
     <string name="error_title_validation">Input Error</string>
     <string name="error_title_auth">Authorization Error</string>
     <string name="error_title_server">Server Error</string>
@@ -45,6 +50,8 @@
     <string name="error_server">Server error. Please try again later.</string>
     <string name="error_network">No internet connection.</string>
     <string name="error_invalid_format">Separate ingredients with commas</string>
+
+    <string name="error_invalid_credentials">Неверный номер телефона или пароль</string>
 
     <string name="toast_data_source_cache">Данные получены из кэша</string>
     <string name="toast_data_source_api">Данные получены из API</string>

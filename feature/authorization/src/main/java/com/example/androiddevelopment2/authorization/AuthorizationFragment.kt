@@ -8,6 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androiddevelopment2.authorization.databinding.FragmentAuthorizationBinding
+import com.example.androiddevelopment2.authorization.state.AuthorizationError
+import com.example.androiddevelopment2.authorization.state.AuthorizationEvent
+import com.example.androiddevelopment2.authorization.state.AuthorizationUiState
 import com.example.androiddevelopment2.base.R
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,15 +37,32 @@ class AuthorizationFragment : BaseFragment(authR.layout.fragment_authorization) 
     }
 
     private fun setupObservers() {
+        viewModel.uiState
+            .onEach { state ->
+                when (state) {
+                    AuthorizationUiState.Loading -> showProgress()
+                    AuthorizationUiState.Idle -> hideProgress()
+                }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
         viewModel.events
             .onEach { event ->
                 when (event) {
-                    is AuthorizationViewModel.AuthorizationEvent.ShowError -> {
-                        showToast(event.message)
+                    is AuthorizationEvent.ShowError -> {
+                        handleErrors(event.message)
                     }
                 }
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun handleErrors(error: AuthorizationError) {
+        val message = when (error) {
+            AuthorizationError.InvalidCredentials -> R.string.error_invalid_credentials
+                AuthorizationError.Unknown -> R.string.error_unknown
+        }
+        showToast(getString(message))
     }
 
     private fun setupListeners() {

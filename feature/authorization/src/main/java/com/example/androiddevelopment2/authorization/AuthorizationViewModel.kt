@@ -2,6 +2,10 @@ package com.example.androiddevelopment2.authorization
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androiddevelopment2.authorization.state.AuthState
+import com.example.androiddevelopment2.authorization.state.AuthorizationError
+import com.example.androiddevelopment2.authorization.state.AuthorizationEvent
+import com.example.androiddevelopment2.authorization.state.AuthorizationUiState
 import com.example.androiddevelopment2.domain.repository.UserPreferencesRepository
 import com.example.androiddevelopment2.domain.usecase.LoginUseCase
 import com.example.androiddevelopment2.navigation.NavAuthorization
@@ -33,18 +37,19 @@ class AuthorizationViewModel @Inject constructor(
 
     fun login(phone: String, password: String) {
         viewModelScope.launch {
-            _uiState.update { AuthorizationUiState.Idle }
-            try {
-                val isSuccess = loginUseCase(phone, password)
+            _uiState.update { AuthorizationUiState.Loading }
+            runCatching {
+                loginUseCase(phone, password)
+            }.onSuccess { isSuccess ->
                 if (isSuccess) {
                     userPreferencesRepository.saveLoginState(true, phone)
                     navAuth.goToMainPage(phone)
                 } else {
-                    _events.emit(AuthorizationEvent.ShowError("Неверный номер телефона или пароль"))
+                    _events.emit(AuthorizationEvent.ShowError(AuthorizationError.InvalidCredentials))
                 }
-            } catch (e: Exception) {
-                _events.emit(AuthorizationEvent.ShowError(e.message ?: "Ошибка"))
-            } finally {
+            }.onFailure { e ->
+                _events.emit(AuthorizationEvent.ShowError(AuthorizationError.Unknown))
+            }.also {
                 _uiState.update { AuthorizationUiState.Idle }
             }
         }
@@ -72,17 +77,4 @@ class AuthorizationViewModel @Inject constructor(
                 }
         }
     }
-
-    sealed class AuthorizationUiState {
-        object Idle : AuthorizationUiState()
-    }
-
-    sealed class AuthorizationEvent {
-        data class ShowError(val message: String) : AuthorizationEvent()
-    }
-
-    data class AuthState(
-        val isLoggedIn: Boolean = false,
-        val userPhone: String? = null
-    )
 }

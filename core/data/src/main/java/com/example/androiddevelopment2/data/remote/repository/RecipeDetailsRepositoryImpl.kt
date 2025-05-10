@@ -1,4 +1,4 @@
-package com.example.androiddevelopment2.data.repository
+package com.example.androiddevelopment2.data.remote.repository
 
 import retrofit2.HttpException
 import com.example.androiddevelopment2.data.mapper.RecipeDetailsResponseMapper
