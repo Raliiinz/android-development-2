@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -33,8 +34,8 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
+    buildFeatures{
+        compose = true
     }
 
 }
@@ -71,4 +72,9 @@ dependencies {
 
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    //Compose
+    implementation(libs.bundles.compose.base)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 }

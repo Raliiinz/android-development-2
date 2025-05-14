@@ -8,6 +8,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt").version("1.23.8")
     id("androidx.navigation.safeargs") version "2.9.0" apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 private val versionMajor = 1

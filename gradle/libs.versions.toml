@@ -25,8 +25,9 @@ shimmer-version = "0.5.0"
 navigation = "2.9.0"
 room_version = "2.6.1"
 detekt = "1.23.8"
-
 datastore-version = "1.0.0"
+compose-base-version = "1.8.1"
+coil-version = "3.2.0"
 
 minSdk = "24"
 targetSdk = "35"
@@ -60,9 +61,16 @@ datastore-preferences = { group = "androidx.datastore", name = "datastore-prefer
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version"}
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose-base-version"}
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-base-version"}
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose-base-version"}
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose-base-version"}
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-version"}
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-version"}
 
 [bundles]
 network-deps = ["retrofit", "converter-gson", "okhttp", "gson"]
+compose-base = [ "compose-foundation", "compose-ui", "compose-material", "compose-runtime"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -72,3 +80,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
