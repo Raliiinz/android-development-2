@@ -35,6 +35,18 @@
     <string name="ready_in_minutes_format">Ready in %d min</string>
 
 
+    <string name="time">Time</string>
+    <string name="servings">Servings</string>
+    <string name="OK">OK</string>
+
+    object Strings {
+    const val TimeIconDesc = "Time"
+    const val ServingsIconDesc = "Servings"
+    const val RecipeImageDesc = "Recipe image"
+    const val OkButton = "OK"
+    }
+
+
     <!--Errors-->
     <string name="error_title_validation">Input Error</string>
     <string name="error_title_auth">Authorization Error</string>

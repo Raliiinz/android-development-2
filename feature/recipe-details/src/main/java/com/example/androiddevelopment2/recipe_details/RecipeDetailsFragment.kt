@@ -1,6 +1,5 @@
 package com.example.androiddevelopment2.recipe_details
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +7,9 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.Glide
-import com.example.androiddevelopment2.base.R
-import com.example.androiddevelopment2.domain.model.RecipeDetailsModel
-import com.example.androiddevelopment2.recipe_details.state.DetailsErrorEvent
-import com.example.androiddevelopment2.recipe_details.state.DetailsScreenState
+import com.example.androiddevelopment2.recipe_details.screen.RecipeDetailsScreen
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import com.example.androiddevelopment2.recipe_details.R as detailsR
 
 @AndroidEntryPoint
 class RecipeDetailsFragment : Fragment() {
@@ -32,11 +23,11 @@ class RecipeDetailsFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                    RecipeDetailsScreen(
-                        viewModel = viewModel,
-                        recipeId = args.recipeId,
+                RecipeDetailsScreen(
+                    viewModel = viewModel,
+                    recipeId = args.recipeId,
 //                        onBackClick = { findNavController().popBackStack() }
-                    )
+                )
             }
         }
     }
