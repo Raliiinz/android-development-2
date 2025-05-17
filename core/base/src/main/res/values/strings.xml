@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Authorization  Registration-->
+    <string name="logo">логотип</string>
+    <string name="phone">Номер телефона</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
+    <string name="registration">Регистрация</string>
+    <string name="to_register">Зарегистрироваться</string>
+    <string name="back">Назад</string>
+    <string name="password_repeat">Повторите пароль</string>
+    <string name="error_phone_empty">Телефон не может быть пустым</string>
+    <string name="error_password_empty">Пароль не может быть пустым</string>
+    <string name="incorrect_email_or_password">Неверная почта или пароль</string>
+    <string name="error_invalid_phone">Неверный номер телефона</string>
+    <string name="error_invalid_password">Пароль должен содержать не менее 6 и не более 15 символов, заглавную букву и цифру</string>
+    <string name="error_password_mismatch">Пароли не совпадают</string>
+    <string name="error_user_already_exists">Пользователь с этим номером телефона уже существует</string>
+    <string name="error_unknown">Произошла неизвестная ошибка. Пожалуйста, повторите попытку позже.</string>
+    <string name="authorization">Авторизация</string>
+
+    <!--Search Details-->
+    <string name="app_name">AndroidDevelopment2</string>
+    <string name="enter_ingredients">Enter ingredients (comma separated)</string>
+    <string name="search">Search Recipes</string>
+    <string name="search_initial_message">Enter ingredients to find delicious recipes!</string>
+    <string name="no_recipes_found">No recipes found for these ingredients</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="servings_format">Servings: %d</string>
+    <string name="used_ingredients">Used ingredients: %d</string>
+    <string name="missing_ingredients">Missing ingredients: %d</string>
+    <string name="summary">Summary</string>
+    <string name="ready_in_minutes_format">Ready in %d min</string>
+
+
+    <!--Errors-->
+    <string name="error_title_validation">Input Error</string>
+    <string name="error_title_auth">Authorization Error</string>
+    <string name="error_title_server">Server Error</string>
+    <string name="error_title_network">Network Error</string>
+    <string name="error_title_unknown">Unknown Error</string>
+    <string name="error_empty_input">Field cannot be empty</string>
+    <string name="error_min_length">Minimum 3 characters required</string>
+    <string name="error_unauthorized">You are not authorized. Please log in.</string>
+    <string name="error_forbidden">Access denied. You don\'t have permission.</string>
+    <string name="error_not_found">Recipes not found.</string>
+    <string name="error_bad_request">Invalid request. Please check your input.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_network">No internet connection.</string>
+    <string name="error_invalid_format">Separate ingredients with commas</string>
+
+    <string name="error_invalid_credentials">Неверный номер телефона или пароль</string>
+
+    <string name="toast_data_source_cache">Данные получены из кэша</string>
+    <string name="toast_data_source_api">Данные получены из API</string>
+</resources>

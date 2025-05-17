@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/graph_global"
+    app:startDestination="@id/nav_auth">
+
+    <action
+        android:id="@+id/action_global_auth"
+        app:destination="@id/nav_auth"/>
+    <include app:graph="@navigation/nav_auth" />
+
+    <action
+        android:id="@+id/action_global_register"
+        app:destination="@id/nav_register"/>
+    <include app:graph="@navigation/nav_register" />
+
+    <action
+        android:id="@+id/action_global_search"
+        app:destination="@id/nav_search"/>
+    <include app:graph="@navigation/nav_search" />
+
+    <action
+        android:id="@+id/action_global_details"
+        app:destination="@id/nav_recipe_detail" />
+
+    <include app:graph="@navigation/nav_recipe_detail" />
+</navigation>
