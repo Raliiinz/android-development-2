@@ -10,12 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.androiddevelopment2.base.R
 import com.example.androiddevelopment2.registration.databinding.FragmentRegistrationBinding
+import com.example.androiddevelopment2.registration.state.RegistrationError
+import com.example.androiddevelopment2.registration.state.RegistrationEvent
+import com.example.androiddevelopment2.registration.state.RegistrationUiState
 import com.example.androiddevelopment2.utils.hideKeyboard
 import com.example.androiddevelopment2.utils.setupPasswordToggle
-import com.example.androiddevelopment2.utils.setupValidation
-import com.example.androiddevelopment2.utils.ValidationUtils
 import com.example.base_feature.BaseFragment
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,7 +31,6 @@ class RegistrationFragment : BaseFragment(registerR.layout.fragment_registration
         super.onViewCreated(view, savedInstanceState)
 
         setupPasswordToggle()
-        setupRealTimeValidation()
         setupListeners()
         setupObservers()
     }
@@ -41,33 +40,22 @@ class RegistrationFragment : BaseFragment(registerR.layout.fragment_registration
         viewBinding.textInputLayoutPasswordRepeat.setupPasswordToggle(viewBinding.etPasswordRepeat)
     }
 
-    private fun setupRealTimeValidation() {
-        viewBinding.etPhone.setupValidation(
-            ValidationUtils::isValidPhone,
-            viewBinding.textInputLayoutPhone,
-            R.string.error_invalid_phone
-        )
+    private fun setupListeners() {
+        viewBinding.etPhone.doOnTextChanged { text, _, _, _ ->
+            viewModel.onPhoneChanged(text.toString())
+        }
 
-        viewBinding.etPassword.setupValidation(
-            ValidationUtils::isValidPassword,
-            viewBinding.textInputLayoutPassword,
-            R.string.error_invalid_password
-        )
+        viewBinding.etPassword.doOnTextChanged { text, _, _, _ ->
+            viewModel.onPasswordChanged(text.toString())
+        }
 
         viewBinding.etPasswordRepeat.doOnTextChanged { text, _, _, _ ->
-            val password = viewBinding.etPassword.text.toString()
-            if (text.toString() != password) {
-                viewBinding.textInputLayoutPasswordRepeat.error = getString(R.string.error_password_mismatch)
-            } else {
-                viewBinding.textInputLayoutPasswordRepeat.error = null
-            }
+            viewModel.onConfirmPasswordChanged(text.toString())
         }
-    }
 
-    private fun setupListeners() {
         viewBinding.etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                attemptRegister()
+                viewModel.register()
                 return@setOnEditorActionListener true
             }
             false
@@ -79,54 +67,7 @@ class RegistrationFragment : BaseFragment(registerR.layout.fragment_registration
         }
 
         viewBinding.btnLogin.setOnClickListener {
-            attemptRegister()
-        }
-    }
-
-    private fun attemptRegister() {
-        val phone = viewBinding.etPhone.text.toString()
-        val password = viewBinding.etPassword.text.toString().trim()
-        val confirmPassword = viewBinding.etPasswordRepeat.text.toString().trim()
-
-        val isPhoneValid = validateField(
-            phone,
-            ValidationUtils::isValidPhone,
-            viewBinding.textInputLayoutPhone,
-            R.string.error_invalid_phone
-        )
-
-        val isPasswordValid = validateField(
-            password,
-            ValidationUtils::isValidPassword,
-            viewBinding.textInputLayoutPassword,
-            R.string.error_invalid_password
-        )
-
-        val isPasswordMatch = if (password != confirmPassword) {
-            viewBinding.textInputLayoutPasswordRepeat.error = getString(R.string.error_password_mismatch)
-            false
-        } else {
-            viewBinding.textInputLayoutPasswordRepeat.error = null
-            true
-        }
-
-        if (isPhoneValid && isPasswordValid && isPasswordMatch) {
-            viewModel.register(phone, password)
-        }
-    }
-
-    private fun validateField(
-        value: String,
-        validator: (String) -> Boolean,
-        textInputLayout: TextInputLayout?,
-        errorResId: Int
-    ): Boolean {
-        return if (!validator(value)) {
-            textInputLayout?.error = getString(errorResId)
-            false
-        } else {
-            textInputLayout?.error = null
-            true
+            viewModel.register()
         }
     }
 
@@ -134,17 +75,42 @@ class RegistrationFragment : BaseFragment(registerR.layout.fragment_registration
         viewModel.uiState
             .onEach { state ->
                 when (state) {
-                    RegistrationViewModel.RegistrationUiState.Loading -> showProgress()
-                    RegistrationViewModel.RegistrationUiState.Idle -> hideProgress()
-                    RegistrationViewModel.RegistrationUiState.Success -> hideProgress()
+                    RegistrationUiState.Loading -> showProgress()
+                    RegistrationUiState.Idle -> hideProgress()
+                    RegistrationUiState.Success -> hideProgress()
                 }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.phoneState
+            .onEach { state ->
+                if (viewBinding.etPhone.text.toString() != state.value) {
+                    viewBinding.etPhone.setText(state.value)
+                    viewBinding.etPhone.setSelection(state.value.length)
+                }
+                viewBinding.textInputLayoutPhone.error =
+                    if (state.shouldShowError) getString(R.string.error_invalid_phone) else null
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.passwordState
+            .onEach { state ->
+                viewBinding.textInputLayoutPassword.error =
+                    if (state.shouldShowError) getString(R.string.error_invalid_password) else null
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.confirmPasswordState
+            .onEach { state ->
+                viewBinding.textInputLayoutPasswordRepeat.error =
+                    if (state.shouldShowError) getString(R.string.error_password_mismatch) else null
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.events
             .onEach { event ->
                 when (event) {
-                    is RegistrationViewModel.RegistrationEvent.ShowError -> {
+                    is RegistrationEvent.ShowError -> {
                         handleErrors(event.error)
                     }
                 }
@@ -152,10 +118,10 @@ class RegistrationFragment : BaseFragment(registerR.layout.fragment_registration
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun handleErrors(error: RegistrationViewModel.RegistrationError) {
+    private fun handleErrors(error: RegistrationError) {
         val message = when (error) {
-            RegistrationViewModel.RegistrationError.UserAlreadyExists -> R.string.error_user_already_exists
-            RegistrationViewModel.RegistrationError.Unknown -> R.string.error_unknown
+            RegistrationError.UserAlreadyExists -> R.string.error_user_already_exists
+            RegistrationError.Unknown -> R.string.error_unknown
         }
         showToast(getString(message))
     }
