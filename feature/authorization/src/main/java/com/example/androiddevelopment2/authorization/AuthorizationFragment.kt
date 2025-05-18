@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,13 +13,11 @@ import com.example.androiddevelopment2.authorization.state.AuthorizationError
 import com.example.androiddevelopment2.authorization.state.AuthorizationEvent
 import com.example.androiddevelopment2.authorization.state.AuthorizationUiState
 import com.example.androiddevelopment2.base.R
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.androiddevelopment2.utils.hideKeyboard
 import com.example.androiddevelopment2.utils.setupPasswordToggle
-import com.example.androiddevelopment2.utils.setupValidationOfNull
 import com.example.base_feature.BaseFragment
 import com.example.androiddevelopment2.authorization.R as authR
 
@@ -32,7 +31,6 @@ class AuthorizationFragment : BaseFragment(authR.layout.fragment_authorization) 
 
         setupObservers()
         setupListeners()
-        setupRealTimeValidation()
         setupPasswordToggle()
     }
 
@@ -43,6 +41,24 @@ class AuthorizationFragment : BaseFragment(authR.layout.fragment_authorization) 
                     AuthorizationUiState.Loading -> showProgress()
                     AuthorizationUiState.Idle -> hideProgress()
                 }
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.phoneState
+            .onEach { state ->
+                if (viewBinding.etPhone.text.toString() != state.value) {
+                    viewBinding.etPhone.setText(state.value)
+                    viewBinding.etPhone.setSelection(state.value.length)
+                }
+                viewBinding.textInputLayoutPhone.error =
+                    if (state.shouldShowError) getString(R.string.error_phone_empty) else null
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.passwordState
+            .onEach { state ->
+                viewBinding.textInputLayoutPassword.error =
+                    if (state.shouldShowError) getString(R.string.error_password_empty) else null
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -60,16 +76,24 @@ class AuthorizationFragment : BaseFragment(authR.layout.fragment_authorization) 
     private fun handleErrors(error: AuthorizationError) {
         val message = when (error) {
             AuthorizationError.InvalidCredentials -> R.string.error_invalid_credentials
-                AuthorizationError.Unknown -> R.string.error_unknown
+            AuthorizationError.Unknown -> R.string.error_unknown
         }
         showToast(getString(message))
     }
 
     private fun setupListeners() {
         with(viewBinding) {
+            viewBinding.etPhone.doOnTextChanged { text, _, _, _ ->
+                viewModel.onPhoneChanged(text.toString())
+            }
+
+            viewBinding.etPassword.doOnTextChanged { text, _, _, _ ->
+                viewModel.onPasswordChanged(text.toString())
+            }
+
             etPassword.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    attemptLogin()
+                    viewModel.login()
                     return@setOnEditorActionListener true
                 }
                 false
@@ -79,57 +103,8 @@ class AuthorizationFragment : BaseFragment(authR.layout.fragment_authorization) 
                 viewModel.navigateToRegistration()
             }
             btnLogin.setOnClickListener {
-                attemptLogin()
+                viewModel.login()
             }
-        }
-    }
-
-    private fun attemptLogin() {
-        val phone = viewBinding.etPhone.text.toString()
-        val password = viewBinding.etPassword.text.toString().trim()
-
-        val isPhoneValid = validateField(
-            value = phone,
-            errorMessage = getString(R.string.error_phone_empty),
-            errorTarget = viewBinding.textInputLayoutPhone
-        )
-
-        val isPasswordValid = validateField(
-            value = password,
-            errorMessage = getString(R.string.error_password_empty),
-            errorTarget = viewBinding.textInputLayoutPassword
-        )
-
-        if (isPhoneValid && isPasswordValid) {
-            viewModel.login(phone, password)
-        }
-    }
-
-    private fun validateField(
-        value: String,
-        errorMessage: String,
-        errorTarget: TextInputLayout?
-    ): Boolean {
-        return if (value.isEmpty()) {
-            errorTarget?.error = errorMessage
-            false
-        } else {
-            errorTarget?.error = null
-            true
-        }
-    }
-
-    private fun setupRealTimeValidation() {
-        viewBinding.apply {
-            etPhone.setupValidationOfNull(
-                errorMessage = getString(R.string.error_phone_empty),
-                errorTarget = textInputLayoutPhone
-            )
-
-            etPassword.setupValidationOfNull(
-                errorMessage = getString(R.string.error_password_empty),
-                errorTarget = textInputLayoutPassword
-            )
         }
     }
 

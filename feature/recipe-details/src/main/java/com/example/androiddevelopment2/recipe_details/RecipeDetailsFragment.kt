@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.androiddevelopment2.base.theme.AppTheme
 import com.example.androiddevelopment2.recipe_details.screen.RecipeDetailsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,11 +24,12 @@ class RecipeDetailsFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                RecipeDetailsScreen(
-                    viewModel = viewModel,
-                    recipeId = args.recipeId,
-//                        onBackClick = { findNavController().popBackStack() }
-                )
+                AppTheme {
+                    RecipeDetailsScreen(
+                        viewModel = viewModel,
+                        recipeId = args.recipeId,
+                    )
+                }
             }
         }
     }

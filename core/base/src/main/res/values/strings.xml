@@ -38,13 +38,8 @@
     <string name="time">Time</string>
     <string name="servings">Servings</string>
     <string name="OK">OK</string>
+    <string name="graph_view">graph_view</string>
 
-    object Strings {
-    const val TimeIconDesc = "Time"
-    const val ServingsIconDesc = "Servings"
-    const val RecipeImageDesc = "Recipe image"
-    const val OkButton = "OK"
-    }
 
 
     <!--Errors-->

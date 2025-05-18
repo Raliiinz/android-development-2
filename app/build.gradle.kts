@@ -58,6 +58,7 @@ dependencies {
     implementation(project(path = ":feature:recipe-details"))
     implementation(project(path = ":feature:authorization"))
     implementation(project(path = ":feature:registration"))
+    implementation(project(path = ":feature:graph"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

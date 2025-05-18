@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -30,8 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures{
+        compose = true
+    }
 }
 
 dependencies {
-
+    //Compose
+    implementation(libs.bundles.compose.base)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 }

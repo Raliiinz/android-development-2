@@ -38,6 +38,7 @@ class SearchFragment: Fragment(searchR.layout.fragment_recipes) {
         observeState()
         observeErrors()
         observeUiEvents()
+        setupFab()
     }
 
     private fun setupRecyclerView() {
@@ -131,6 +132,12 @@ class SearchFragment: Fragment(searchR.layout.fragment_recipes) {
                     is SearchUiEvent.ShowDataSourceToast -> showDataSourceToast(event.source)
                 }
             }
+        }
+    }
+
+    private fun setupFab() {
+        viewBinding.fabGraph.setOnClickListener {
+            viewModel.reduce(event = SearchScreenEvent.OnGraphButtonClicked)
         }
     }
 

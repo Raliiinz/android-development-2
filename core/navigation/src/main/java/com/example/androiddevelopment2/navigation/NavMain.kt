@@ -7,4 +7,6 @@ interface NavMain {
     fun goToSearchPage()
 
     fun goToDetailsPage(recipeId: Int)
+
+    fun goToGraphPage()
 }

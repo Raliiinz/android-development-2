@@ -45,6 +45,7 @@ class SearchViewModel @Inject constructor(
         when (event) {
             is SearchScreenEvent.OnSearchButtonClicked -> processSearchQuery(event.query)
             is SearchScreenEvent.OnListItemClick -> navigateToDetails(event.recipeId)
+            is SearchScreenEvent.OnGraphButtonClicked -> navigateToGraph()
         }
     }
 
@@ -120,5 +121,9 @@ class SearchViewModel @Inject constructor(
 
     private fun navigateToDetails(recipeId: Int) {
         navMain.goToDetailsPage(recipeId)
+    }
+
+    private fun navigateToGraph() {
+        navMain.goToGraphPage()
     }
 }
