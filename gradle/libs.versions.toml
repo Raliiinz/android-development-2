@@ -81,7 +81,7 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 
 [bundles]
 network-deps = ["retrofit", "converter-gson", "okhttp", "gson"]
-compose-base = [ "compose-foundation", "compose-ui", "compose-material", "compose-runtime", "compose-ui-preview", "compose-runtime-livedata", "compose-navigation", "compose-lifecycle", "compose-material3"]
+compose-base = [ "compose-foundation", "compose-ui", "compose-runtime", "compose-ui-preview", "compose-runtime-livedata", "compose-navigation", "compose-lifecycle", "compose-material3"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,5 +1,8 @@
 package com.example.androiddevelopment2.graph.state
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class GraphState(
     val pointsCountInput: String = "",
     val pointsValuesInput: String = "",

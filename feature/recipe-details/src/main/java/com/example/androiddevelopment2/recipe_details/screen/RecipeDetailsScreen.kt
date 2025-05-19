@@ -45,7 +45,7 @@ private fun ErrorHandler(errorEvent: DetailsErrorEvent?) {
     }
 
     if (showError && currentError != null) {
-        ErrorDialog(
+        ErrorDialogFactory.Create(
             errorEvent = currentError!!,
             onDismiss = { showError = false }
         )

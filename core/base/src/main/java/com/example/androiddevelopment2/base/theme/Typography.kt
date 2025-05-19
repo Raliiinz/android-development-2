@@ -17,11 +17,11 @@ data class Typography(
         fontWeight = FontWeight.Bold
     ),
     val meta: TextStyle = TextStyle(
-        fontSize = 16.sp
+        fontSize = 14.sp
     ),
     val body: TextStyle = TextStyle(
-        fontSize = 16.sp,
-        lineHeight = 24.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp
     ),
     val shimmerTitleHeight: Dp = 32.dp,
     val shimmerMetaHeight: Dp = 24.dp,
