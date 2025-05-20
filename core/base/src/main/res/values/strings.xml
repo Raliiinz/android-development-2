@@ -40,6 +40,16 @@
     <string name="OK">OK</string>
     <string name="graph_view">graph_view</string>
 
+    <string name="number_of_points">Количество точек</string>
+    <string name="values_of_dots_separated_by_commas">Значения точек (через запятую)</string>
+    <string name="draw_graph">Построить график</string>
+
+    <string name="error_invalid_points_count">Please enter a valid positive number of points</string>
+    <string name="error_invalid_points">Please enter valid non-negative numbers separated by commas</string>
+    <string name="error_points_mismatch">Expected %d values matching the points count</string>
+
+
+
 
 
     <!--Errors-->

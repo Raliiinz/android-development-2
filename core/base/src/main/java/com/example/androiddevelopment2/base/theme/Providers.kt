@@ -19,4 +19,8 @@ object Theme {
     val colors: ColorScheme
         @Composable
         get() = LocalColorScheme.current
+
+    val sizes: Sizes
+        @Composable
+        get() = LocalSizes.current
 }
