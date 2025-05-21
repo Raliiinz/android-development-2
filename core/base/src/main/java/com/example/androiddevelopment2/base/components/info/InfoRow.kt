@@ -1,11 +1,7 @@
 package com.example.androiddevelopment2.base.components.info
 
-import androidx.compose.ui.unit.dp
-
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -21,20 +17,22 @@ fun InfoRow(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = modifier.fillMaxWidth()
     ) {
         InfoItem(
             iconRes = R.drawable.ic_time,
             text = stringResource(R.string.ready_in_minutes_format, readyInMinutes),
             textStyle = Theme.typography.meta,
-            spacing = spacing
+            spacing = spacing,
+            modifier = Modifier.weight(1f)
         )
 
         InfoItem(
             iconRes = R.drawable.ic_group,
             text = stringResource(R.string.servings_format, servings),
-            textStyle = Theme.typography.meta
+            textStyle = Theme.typography.meta,
+            spacing = spacing,
+            modifier = Modifier.weight(1f)
         )
     }
 }

@@ -3,8 +3,6 @@ package com.example.androiddevelopment2.base.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.material3.darkColorScheme
 
 @Composable
 fun AppTheme(

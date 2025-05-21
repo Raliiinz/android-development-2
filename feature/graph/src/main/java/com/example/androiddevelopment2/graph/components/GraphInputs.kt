@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,7 +75,7 @@ private fun PointsCountInput(
         if (isError && errorMessage == GraphState.FailureReason.InvalidPointsCount) {
             Text(
                 text = stringResource(R.string.error_invalid_points_count),
-                color = MaterialTheme.colorScheme.error,
+                color = Theme.colors.error,
                 modifier = Modifier.align(Alignment.Start)
             )
         }
@@ -105,7 +104,7 @@ private fun PointsValuesInput(
         if (errorMessage == GraphState.FailureReason.InvalidPoints) {
             Text(
                 text = stringResource(R.string.error_invalid_points),
-                color = MaterialTheme.colorScheme.error,
+                color = Theme.colors.error,
                 modifier = Modifier.align(Alignment.Start)
             )
         }
@@ -115,7 +114,7 @@ private fun PointsValuesInput(
                     R.string.error_points_mismatch,
                     pointsCount.toIntOrNull() ?: 0
                 ),
-                color = MaterialTheme.colorScheme.error,
+                color = Theme.colors.error,
                 modifier = Modifier.align(Alignment.Start)
             )
         }

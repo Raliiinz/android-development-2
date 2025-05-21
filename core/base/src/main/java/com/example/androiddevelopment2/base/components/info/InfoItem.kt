@@ -22,9 +22,9 @@ fun InfoItem(
     @DrawableRes iconRes: Int,
     text: String,
     textStyle: TextStyle,
-    iconSize: Dp = 24.dp,
+    iconSize: Dp = Theme.spacing.large,
     iconTint: Color = Theme.colors.onBackground,
-    spacing: Dp = 16.dp,
+    spacing: Dp = Theme.spacing.medium,
     modifier: Modifier = Modifier
 ) {
     Row(

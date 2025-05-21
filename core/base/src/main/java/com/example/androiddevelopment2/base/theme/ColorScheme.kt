@@ -14,6 +14,7 @@ val LightColorScheme = lightColorScheme(
     onSecondary = Color.Black,
     onBackground = Color.Black,
     onSurface = Color.Black,
+    error = Color.Red
 )
 
 val DarkColorScheme = darkColorScheme(
@@ -25,6 +26,7 @@ val DarkColorScheme = darkColorScheme(
     onSecondary = Color.Black,
     onBackground = Color.White,
     onSurface = Color.White,
+    error = Color.Red
 )
 
 val LocalColorScheme = staticCompositionLocalOf { LightColorScheme }
