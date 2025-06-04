@@ -7,6 +7,7 @@ import com.example.androiddevelopment2.authorization.state.AuthorizationError
 import com.example.androiddevelopment2.authorization.state.AuthorizationEvent
 import com.example.androiddevelopment2.authorization.state.AuthorizationUiState
 import com.example.androiddevelopment2.authorization.state.FieldState
+import com.example.androiddevelopment2.domain.firebase.crashlytics.CrashlyticsTracker
 import com.example.androiddevelopment2.domain.repository.UserPreferencesRepository
 import com.example.androiddevelopment2.domain.usecase.LoginUseCase
 import com.example.androiddevelopment2.navigation.NavAuthorization
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class AuthorizationViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository,
     private val loginUseCase: LoginUseCase,
-    private val navAuth: NavAuthorization
+    private val navAuth: NavAuthorization,
+    private val crashlyticsTracker: CrashlyticsTracker
 ) : ViewModel() {
 
     private var phoneTouched = false
@@ -69,7 +71,11 @@ class AuthorizationViewModel @Inject constructor(
     }
 
     fun login() {
+
         submitAttempted = true
+
+        crashlyticsTracker.logEvent("Login attempt started")
+        crashlyticsTracker.setCustomKey("login_state", "started")
 
         _phoneState.update {
             it.copy(shouldShowError = !it.isValid)
@@ -79,25 +85,51 @@ class AuthorizationViewModel @Inject constructor(
         }
 
         if (!_phoneState.value.isValid || !_passwordState.value.isValid) {
+            crashlyticsTracker.logEvent("Validation failed")
+            crashlyticsTracker.setCustomKey("phone_valid", _phoneState.value.isValid)
+            crashlyticsTracker.setCustomKey("password_valid", _passwordState.value.isValid)
             return
         }
 
         viewModelScope.launch {
             _uiState.update { AuthorizationUiState.Loading }
+            crashlyticsTracker.setCustomKey("login_state", "loading")
+
             runCatching {
+                crashlyticsTracker.logEvent("Trying to login")
+                crashlyticsTracker.setCustomKey("user_phone",_phoneState.value.value.toString())
+
                 loginUseCase(_phoneState.value.value, _passwordState.value.value)
             }.onSuccess { isSuccess ->
                 if (isSuccess) {
+                    crashlyticsTracker.logEvent("Login success")
+                    crashlyticsTracker.setCustomKey("login_state", "success")
+
                     userPreferencesRepository.saveLoginState(true, _phoneState.value.value)
                     navAuth.goToMainPage(_phoneState.value.value)
                 } else {
+                    crashlyticsTracker.logEvent("Invalid credentials")
+                    crashlyticsTracker.setCustomKey("login_state", "invalid_credentials")
+
+//                    triggerTestCrash()
                     _events.emit(AuthorizationEvent.ShowError(AuthorizationError.InvalidCredentials))
                 }
             }.onFailure { e ->
+                crashlyticsTracker.logError(e)
+                crashlyticsTracker.setCustomKey("login_state", "failure")
+                crashlyticsTracker.setCustomKey("error_message", e.message ?: "unknown")
                 _events.emit(AuthorizationEvent.ShowError(AuthorizationError.Unknown))
             }.also {
                 _uiState.update { AuthorizationUiState.Idle }
+                crashlyticsTracker.setCustomKey("login_state", "idle")
             }
+        }
+    }
+
+    fun triggerTestCrash() {
+        viewModelScope.launch {
+            crashlyticsTracker.logEvent("Triggering test crash")
+            throw RuntimeException("Тестовый краш для Firebase Crashlytics!")
         }
     }
 

@@ -7,6 +7,7 @@ import javax.inject.Inject
 class NavImpl @Inject constructor(
     private val navigatorDelegate: NavigatorDelegate,
     private val navMain: NavMain,
+    private val appNavigator: AppNavigator
 ) : Nav, NavMain by navMain {
 
     init {
@@ -19,5 +20,9 @@ class NavImpl @Inject constructor(
 
     override fun clearNavProvider(navProvider: Nav.Provider) {
         navigatorDelegate.clearNavProvider(navProvider = navProvider)
+    }
+
+    override fun goToScreen(screen: String) {
+        appNavigator.navigateTo(screen)
     }
 }

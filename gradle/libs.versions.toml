@@ -37,6 +37,15 @@ navigationFragmentKtx = "2.9.0"
 navigationUiKtx = "2.9.0"
 lifecycle-version = "2.8.7"
 
+google-services = "4.4.2"
+firebase-messaging = "24.1.1"
+firebase-crashlytics = "19.4.3"
+firebase-analytics = "22.4.0"
+firebase-remote-config = "22.1.2"
+crashlytics-plugin = "3.0.3"
+firebase-bom = "32.7.2"
+
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -78,6 +87,11 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-version"}
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase-messaging" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebase-crashlytics" }
+firebase-remote-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebase-remote-config" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 
 [bundles]
 network-deps = ["retrofit", "converter-gson", "okhttp", "gson"]
@@ -92,3 +106,5 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-services = {id = "com.google.gms.google-services", version.ref = "google-services"}
+crashlytics-plugin = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin" }

@@ -20,6 +20,7 @@ import com.example.androiddevelopment2.search.state.SearchScreenEvent
 import com.example.androiddevelopment2.search.state.SearchScreenState
 import com.example.androiddevelopment2.search.state.SearchUiEvent
 import com.example.androiddevelopment2.utils.hideKeyboard
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import com.example.androiddevelopment2.search.R as searchR
@@ -130,6 +131,7 @@ class SearchFragment: Fragment(searchR.layout.fragment_recipes) {
             viewModel.uiEvent.collect { event ->
                 when (event) {
                     is SearchUiEvent.ShowDataSourceToast -> showDataSourceToast(event.source)
+                    SearchUiEvent.ShowFeatureDisabledMessage -> showSnackbar("This feature is currently unavailable")
                 }
             }
         }
@@ -181,5 +183,9 @@ class SearchFragment: Fragment(searchR.layout.fragment_recipes) {
         }
 
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showSnackbar(message: String) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 }

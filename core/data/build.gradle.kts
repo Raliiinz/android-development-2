@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(path = ":core:base"))
     implementation(project(path = ":core:network"))
     implementation(project(path = ":core:domain"))
 
@@ -56,4 +57,13 @@ dependencies {
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.ksp)
+
+    //Firebase
+
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.remote.config)
+//    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+//    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
 }

@@ -13,4 +13,6 @@ interface Nav {
     fun setNavProvider(navProvider: Provider)
 
     fun clearNavProvider(navProvider: Provider)
+
+    fun goToScreen(screen: String)
 }

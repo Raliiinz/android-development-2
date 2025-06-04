@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.detekt)
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics.plugin)
 }
 
 android {
@@ -76,6 +78,16 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(libs.viewbindingpropertydelegate.noreflection)
+
+    // Firebase
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+//    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.remote.config)
+//    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
+
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 

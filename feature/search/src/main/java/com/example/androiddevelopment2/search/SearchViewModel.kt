@@ -8,6 +8,8 @@ import com.example.androiddevelopment2.domain.exception.NetworkException
 import com.example.androiddevelopment2.domain.exception.NotFoundException
 import com.example.androiddevelopment2.domain.exception.ServerException
 import com.example.androiddevelopment2.domain.exception.UnauthorizedException
+import com.example.androiddevelopment2.domain.firebase.remoteconfig.featureflags.FeatureFlags
+import com.example.androiddevelopment2.domain.firebase.remoteconfig.FeatureFlagsRepository
 import com.example.androiddevelopment2.domain.usecase.SearchRecipesUseCase
 import com.example.androiddevelopment2.navigation.NavMain
 import com.example.androiddevelopment2.search.state.SearchErrorEvent
@@ -29,7 +31,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRecipesUseCase: SearchRecipesUseCase,
-    private val navMain: NavMain
+    private val navMain: NavMain,
+    private val featureFlagsRepository: FeatureFlagsRepository
 ) : ViewModel() {
 
     private val _pageState = MutableStateFlow<SearchScreenState>(value = SearchScreenState.Initial)
@@ -119,11 +122,22 @@ class SearchViewModel @Inject constructor(
         _errorEvent.emit(SearchErrorEvent.ServerError(errorReason))
     }
 
-    private fun navigateToDetails(recipeId: Int) {
-        navMain.goToDetailsPage(recipeId)
-    }
-
     private fun navigateToGraph() {
         navMain.goToGraphPage()
+    }
+
+    private fun navigateToDetails(recipeId: Int) {
+        viewModelScope.launch {
+            featureFlagsRepository.fetchFeatureFlags()
+
+            val isDetailsEnabled = featureFlagsRepository
+                .isFeatureEnabled(FeatureFlags.DETAILS_PAGE)
+
+            if (isDetailsEnabled) {
+                navMain.goToDetailsPage(recipeId)
+            } else {
+                _uiEvent.emit(SearchUiEvent.ShowFeatureDisabledMessage)
+            }
+        }
     }
 }
