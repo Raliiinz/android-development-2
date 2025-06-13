@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.1"
+agp = "8.9.2"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -9,6 +9,42 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+retrofit_version = "2.11.0"
+glide_version = "4.16.0"
+coroutines_version = "1.6.4"
+vbDelegateVersion = "1.5.9"
+okhttp-version = "4.11.0"
+converter-gson-version="2.3.0"
+gson = "2.13.0"
+logging-interceptor-version="4.12.0"
+fragment-version = "1.8.6"
+hilt-version = "2.56.1"
+ksp = "2.0.21-1.0.27"
+secretsGradlePlugin = "2.0.1"
+shimmer-version = "0.5.0"
+navigation = "2.9.0"
+room_version = "2.6.1"
+detekt = "1.23.8"
+datastore-version = "1.0.0"
+compose-base-version = "1.8.1"
+composeMaterial3 = "1.2.1"
+coil-version = "3.2.0"
+
+minSdk = "24"
+targetSdk = "35"
+compileSdk = "35"
+navigationFragmentKtx = "2.9.0"
+navigationUiKtx = "2.9.0"
+lifecycle-version = "2.8.7"
+
+google-services = "4.4.2"
+firebase-messaging = "24.1.1"
+firebase-crashlytics = "19.4.3"
+firebase-analytics = "22.4.0"
+firebase-remote-config = "22.1.2"
+crashlytics-plugin = "3.0.3"
+firebase-bom = "32.7.2"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,8 +55,56 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide_version" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines_version" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines_version" }
+viewbindingpropertydelegate-noreflection = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "vbDelegateVersion" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp-version" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson-version" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+http-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor-version" }
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-version" }
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-version" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-version" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer-version" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore-version" }
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version"}
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose-base-version"}
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-base-version"}
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose-base-version"}
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose-base-version"}
+compose-ui-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose-base-version"}
+compose-runtime-livedata= { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose-base-version"}
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle-version" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil-version"}
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil-version"}
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebase-messaging" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebase-analytics" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebase-crashlytics" }
+firebase-remote-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebase-remote-config" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+
+[bundles]
+network-deps = ["retrofit", "converter-gson", "okhttp", "gson"]
+compose-base = [ "compose-foundation", "compose-ui", "compose-runtime", "compose-ui-preview", "compose-runtime-livedata", "compose-navigation", "compose-lifecycle", "compose-material3"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-services = {id = "com.google.gms.google-services", version.ref = "google-services"}
+crashlytics-plugin = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin" }

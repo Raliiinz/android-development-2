@@ -24,3 +24,6 @@ build/
 *.iws
 classes/
 target/**
+
+./.idea
+./.kotlin
