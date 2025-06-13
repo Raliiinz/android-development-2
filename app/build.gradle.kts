@@ -61,6 +61,7 @@ dependencies {
     implementation(project(path = ":feature:authorization"))
     implementation(project(path = ":feature:registration"))
     implementation(project(path = ":feature:graph"))
+    implementation(project(path = ":feature:customview"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

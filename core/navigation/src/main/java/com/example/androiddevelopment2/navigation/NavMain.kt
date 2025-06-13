@@ -9,4 +9,6 @@ interface NavMain {
     fun goToDetailsPage(recipeId: Int)
 
     fun goToGraphPage()
+
+    fun goToCustomPage()
 }

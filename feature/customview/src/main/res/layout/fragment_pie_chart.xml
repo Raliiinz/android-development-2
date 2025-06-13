@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F8F9FA">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Overlapping Pie Chart"
+    android:textSize="28sp"
+    android:textStyle="bold"
+    android:textColor="#2C3E50"
+    android:gravity="center"
+    android:layout_marginBottom="8dp" />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Tap on sectors to select them"
+    android:textSize="14sp"
+    android:textColor="#7F8C8D"
+    android:gravity="center"
+    android:layout_marginBottom="24dp" />
+
+<com.example.androiddevelopment2.customview.PieChartView
+    android:id="@+id/pieChartView"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    app:sectorsCount="5"
+    app:sectorColors="@array/pie_colors" />
+
+<TextView
+    android:id="@+id/statusText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="No sector selected"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:textColor="#34495E"
+    android:gravity="center"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="24dp" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btn3Sectors"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="3"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_selector"
+        android:elevation="4dp" />
+
+    <Button
+        android:id="@+id/btn4Sectors"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="4"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_selector"
+        android:elevation="4dp" />
+
+    <Button
+        android:id="@+id/btn5Sectors"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="5"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_selector"
+        android:elevation="4dp" />
+
+    <Button
+        android:id="@+id/btn6Sectors"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="6"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_selector"
+        android:elevation="4dp" />
+
+</LinearLayout>
+
+<Button
+    android:id="@+id/btnClearSelection"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_marginTop="16dp"
+    android:text="Clear Selection"
+    android:textColor="@android:color/white"
+    android:textStyle="bold"
+    android:background="@drawable/clear_button_selector"
+    android:elevation="4dp" />
+
+</LinearLayout>
