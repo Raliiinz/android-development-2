@@ -2,6 +2,6 @@
 <resources>
     <declare-styleable name="PieChartView">
         <attr name="sectorsCount" format="integer" />
-        <attr name="sectorColors" format="reference" />
+        <attr name="sectorColors" format="reference|color" />
     </declare-styleable>
 </resources>

@@ -72,4 +72,15 @@
 
     <string name="toast_data_source_cache">Данные получены из кэша</string>
     <string name="toast_data_source_api">Данные получены из API</string>
+
+    <string name="pie_chart_title">Overlapping Pie Chart</string>
+    <string name="pie_chart_subtitle">Tap on sectors to select them</string>
+    <string name="three_sectors">3</string>
+    <string name="four_sectors">4</string>
+    <string name="five_sectors">5</string>
+    <string name="six_sectors">6</string>
+    <string name="clear_selection">Clear Selection</string>
+
+
+
 </resources>
