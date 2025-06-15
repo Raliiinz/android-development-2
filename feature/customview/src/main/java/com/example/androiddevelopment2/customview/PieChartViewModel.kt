@@ -26,7 +26,7 @@ class PieChartViewModel @Inject constructor() : ViewModel() {
 
     fun reduce(event: PieChartEvent) {
         when (event) {
-            is PieChartEvent.OnSectorCountChanged -> generateSectorData(event.count)  // Используем переданное количество
+            is PieChartEvent.OnSectorCountChanged -> generateSectorData(event.count)
             is PieChartEvent.OnSectorSelected -> updateSelection(event.index)
             PieChartEvent.OnClearSelection -> clearSelection()
         }
