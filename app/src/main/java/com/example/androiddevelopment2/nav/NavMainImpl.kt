@@ -33,4 +33,8 @@ class NavMainImpl @Inject constructor(
     override fun goToGraphPage() {
         navigatorDelegate.navigate(action = R.id.action_global_graph)
     }
+
+    override fun goToCustomPage() {
+        navigatorDelegate.navigate(action = R.id.action_global_custom)
+    }
 }

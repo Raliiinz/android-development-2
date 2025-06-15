@@ -40,6 +40,13 @@ class SearchFragment: Fragment(searchR.layout.fragment_recipes) {
         observeErrors()
         observeUiEvents()
         setupFab()
+        setUpCustomButton()
+    }
+
+    private fun setUpCustomButton() {
+        viewBinding.customButton.setOnClickListener {
+            viewModel.navigateToCustom()
+        }
     }
 
     private fun setupRecyclerView() {

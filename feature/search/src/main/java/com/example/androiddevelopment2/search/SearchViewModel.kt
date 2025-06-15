@@ -126,6 +126,10 @@ class SearchViewModel @Inject constructor(
         navMain.goToGraphPage()
     }
 
+    fun navigateToCustom() {
+        navMain.goToCustomPage()
+    }
+
     private fun navigateToDetails(recipeId: Int) {
         viewModelScope.launch {
             featureFlagsRepository.fetchFeatureFlags()
